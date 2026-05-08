@@ -1,0 +1,489 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    height: 100vh;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #fdf6ec, #f8e8d8);
+    overflow: hidden;
+}
+
+/* WRAPPER */
+.app-wrapper {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0; /* 🔥 lebih kalem */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #f3e4cf;
+    position: relative;
+    box-shadow: none;
+    min-height: 100vh;
+}
+
+/* layering */
+.navbar,
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    height: 70px;
+    background: #d2b48c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 35px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* LEFT */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-icon {
+    font-size: 28px;
+    color: #5c4630;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: #5c4630;
+    letter-spacing: 0.5px;
+    margin-left: 5px;
+}
+
+/* RIGHT */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-right .fa-gear {
+    font-size: 16px;
+    color: #5c4630;
+}
+
+/* USER */
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ede0d4;
+    padding: 6px 15px;
+    border-radius: 1px;
+    box-shadow: none;
+}
+
+.user-box img {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.user-box span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* ================= LAYOUT ================= */
+.container {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 280px;
+    padding: 30px 20px;
+    background: linear-gradient(to bottom, #d9c2a1, #f1e1c9);
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    border-radius: 12px;
+    margin-bottom: 10px;
+    gap: 15px;
+    font-size: 15px;
+    color: #6b5540;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.sidebar ul li i {
+    width: 25px;
+    text-align: center;
+    font-size: 18px;
+    color: #8b6f52;
+}
+
+.sidebar ul li.active {
+    background: #fff;
+    color: #4b3b2a;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.sidebar ul li.active i {
+    color: #4b3b2a;
+}
+
+.sidebar ul li:hover {
+    background: rgba(255,255,255,0.6);
+}
+
+.logout {
+    margin-top: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 12px;
+    border-radius: 12px;
+
+    background: #f3dfd9;
+    color: #e74c3c;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: 0.2s;
+}
+
+.logout:hover {
+    background: #f0d2ca;
+}
+
+/* ================= MAIN ================= */
+.main {
+    flex: 1;
+    padding: 25px 30px;
+    overflow-y: hidden;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.header-box {
+    position: relative;
+    padding: 40px 50px;
+    border-radius: 20px;
+    background: url('/images/bg_sekolah.png') no-repeat center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    min-height: 220px;
+    overflow: hidden;
+    
+}
+
+/* overlay biar teks kebaca */
+.header-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(243, 228, 207, 0.95),
+        rgba(243, 228, 207, 0.7)
+    );
+}
+
+/* teks di atas */
+.header-box .text-group {
+    position: relative;
+    z-index: 2;
+}
+
+/* TEXT */
+.text-group {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 500px;
+}
+
+.header-box h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #4b3b2a;
+    line-height: 1.3;
+}
+
+.sub-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #6b4f3a;
+}
+
+.desc {
+    font-size: 13px;
+    color: #6b6b6b;
+    line-height: 1.5;
+}
+
+/* ================= CARD WRAPPER ================= */
+.card-wrapper {
+    margin-top: 5px;
+    padding: 12px;
+    border-radius: 18px;
+    background: #f5e9d8;
+}
+
+/* CARD */
+.card-box {
+    background: #f8f5f0;
+    padding: 22px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+}
+
+.card-box h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.card-box p {
+    font-size: 14px;
+    color: #555;
+}
+
+.card-box span {
+    font-size: 13px;
+    color: #888;
+}
+
+.card-box:hover {
+    transform: translateY(-2px);
+}
+
+.card-box.active {
+    border: 2px solid #4a90e2;
+}
+
+/* CONTENT */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.card-content.center {
+    text-align: center;
+    flex: 1;
+}
+
+/* ICON KANAN */
+.card-icon-right {
+    margin-left: auto;
+    font-size: 22px;
+    color: #c8c0b8;
+}
+
+/* BUTTON DETAIL */
+.btn-detail {
+    margin-left: auto;
+    background: #f39c12;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* BADGE */
+.badge {
+    margin-left: auto;
+    background: #8e44ad;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+/* PROGRESS */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.progress {
+    width: 75%;
+    height: 100%;
+    background: #8e44ad;
+    border-radius: 10px;
+}
+
+/* CARD BESAR (CARD 1) */
+.card-box.big {
+    align-items: center;
+}
+/* ICON */
+.icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+/* ICON COLORS */
+.icon.green { background: #4CAF50; }
+.icon.orange { background: #f39c12; }
+.icon.red { background: #e74c3c; }
+.icon.purple { background: #8e44ad; }
+
+/* TEXT */
+.card-box h3 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.card-box p {
+    font-size: 14px;
+    color: #555;
+}
+
+.card-box span {
+    font-size: 11px;
+    color: #888;
+}
+
+.card-box.active {
+    border: 2px solid #4a90e2;
+    background: #ffffff;
+}
+
+.card-wrapper {
+    margin-top: 10px;
+    position: relative;
+    z-index: 3;
+}
+/* ================= TABLE ================= */
+.table-box {
+    flex: 1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.table-box h3 {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+table {
+    width: 100%;
+    font-size: 13px;
+}
+
+table th {
+    text-align: left;
+    padding-bottom: 8px;
+    color: #555;
+}
+
+table td {
+    padding: 7px 0;
+}
+.main {
+    background: transparent;
+    justify-content: flex-start;
+}
+.card-inner {
+    background: #e2caa8;
+    padding: 20px;
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.card-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* RESET LI */
+.menu li {
+    list-style: none;
+    margin-bottom: 8px; /* kecilin jarak */
+}
+
+/* LINK */
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+
+    padding: 12px 16px; /* 🔥 lebih kecil & rapi */
+    border-radius: 10px;
+
+    text-decoration: none;
+    color: #6b5540;
+    font-weight: 500;
+}
+
+/* HOVER */
+.menu a:hover {
+    background: rgba(255,255,255,0.6);
+}
+
+/* ACTIVE */
+.menu li.active a {
+    background: #fff;
+    color: #4b3b2a;
+    font-weight: 600;
+}
