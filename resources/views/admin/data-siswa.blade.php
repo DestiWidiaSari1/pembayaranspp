@@ -77,6 +77,7 @@
                     <th>Nama</th>
                     <th>Kelas</th>
                     <th>Jurusan</th>
+                    <th>Email</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -87,8 +88,9 @@
                     <td>{{ $siswa->nama_lengkap }}</td>
                     <td>{{ $siswa->kelas }}</td>
                     <td>{{ $siswa->jurusan }}</td>
+                    <td>{{ $siswa->email }}</td>
                     <td>
-                        <button class="btn-edit" onclick="openEditModal({{ $siswa->id }}, '{{ $siswa->nis }}', '{{ $siswa->nama_lengkap }}', '{{ $siswa->kelas }}', '{{ $siswa->jurusan }}')">
+                        <button class="btn-edit" onclick="openEditModal({{ $siswa->id }}, '{{ $siswa->nis }}', '{{ $siswa->nama_lengkap }}', '{{ $siswa->kelas }}', '{{ $siswa->jurusan }}', '{{ $siswa->email }}')">
                             <i class="fa fa-pen"></i> Edit
                         </button>
                         <button class="btn-delete" onclick="openHapusModal({{ $siswa->id }}, '{{ $siswa->nama_lengkap }}')">
@@ -111,7 +113,6 @@
         </div>
     </div>
 </div>
-
 <!-- ===================== MODAL TAMBAH SISWA ===================== -->
 <div class="modal-overlay" id="modalTambah">
     <div class="modal-box">
@@ -177,6 +178,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="form-group">
+            <label>Email <span style="font-size:12px;color:#9a8c7e;">(opsional, untuk reset kata sandi)</span></label>
+            <input type="email" name="email" placeholder="Masukan Email Siswa">
         </div>
             <div class="modal-footer">
                 <button type="button" class="btn-cancel" onclick="closeModal('modalTambah')">Batal</button>
@@ -255,6 +260,10 @@
                     </div>
                 </div>
             </div> {{-- TUTUP modal-body DI SINI --}}
+            <div class="form-group">
+                <label>Email <span style="font-size:12px;color:#9a8c7e;">(opsional, untuk reset kata sandi)</span></label>
+                <input type="email" name="email" id="editEmail" placeholder="Masukan Email Siswa">
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn-cancel" onclick="closeModal('modalEdit')">Batal</button>
                 <button type="submit" class="btn-save">
@@ -446,7 +455,7 @@ function pilihEditJurusan(nilai) {
         });
     });
 
-    function openEditModal(id, nis, nama, kelas, jurusan) {
+    function openEditModal(id, nis, nama, kelas, jurusan, email) {
     document.getElementById('formEdit').action = '/data-siswa/update/' + id;  // ← sesuaikan route
     document.getElementById('editNis').value = nis;
     document.getElementById('editNama').value = nama;
@@ -454,6 +463,7 @@ function pilihEditJurusan(nilai) {
     document.getElementById('inputEditKelas').value = kelas;
     document.getElementById('labelEditJurusan').textContent = jurusan || 'Pilih Jurusan';
     document.getElementById('inputEditJurusan').value = jurusan;
+    document.getElementById('editEmail').value = email;
     openModal('modalEdit'); 
 }
 

@@ -17,11 +17,10 @@
     <div class="card-inner">
 
         <!-- CARD 1 -->
-        <div class="card-box big">
+        <div class="card-box big" onclick="window.location='{{ route('data-siswa') }}'" style="cursor:pointer;">
             <div class="icon green"><i class="fa fa-users"></i></div>
-
             <div class="card-content">
-                <h3>650</h3>
+                <h3>{{ $jumlahSiswa }}</h3>
                 <p>Jumlah Siswa</p>
             </div>
 
@@ -35,33 +34,33 @@
             <div class="icon orange"><i class="fa fa-chart-line"></i></div>
 
             <div class="card-content">
-                <h3>120</h3>
+                <h3>{{ $tagihanBelumLunas }}</h3>
                 <p>Tagihan Belum Lunas</p>
-                <span>IDR 19,8 Juta</span>
+                <span>-</span>
             </div>
 
-            <div class="btn-detail">Lihat Detail ></div>
+            <a href="{{ route('laporan-pembayaran') }}" class="btn-detail">Lihat Detail ›</a>
         </div>
 
         <!-- CARD 3 -->
-        <div class="card-box">
+        <div class="card-box" onclick="window.location='{{ route('laporan-pembayaran') }}'" style="cursor:pointer;">
             <div class="icon red"><i class="fa fa-wallet"></i></div>
-
+            
             <div class="card-content">
-                <h3>IDR 89,5 Juta</h3>
+                <h3>Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</h3>
                 <p>Total Pemasukan</p>
-                <span>IDR 89,5 Juta</span>
+                <span>Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</span>
             </div>
         </div>
 
         <!-- CARD 4 -->
-        <div class="card-box">
+        <div class="card-box" onclick="window.location='{{ route('laporan-pembayaran') }}'" style="cursor:pointer;">
             <div class="icon purple"><i class="fa fa-users"></i></div>
 
             <div class="card-content">
-                <h3>45 Siswa</h3>
+                <h3>{{ $menunggak }} Siswa</h3>
                 <p>Menunggak</p>
-                <span>IDR 8,75 Juta</span>
+                <span>Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</span>
 
                 <div class="progress-bar">
                     <div class="progress"></div>

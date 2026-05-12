@@ -180,6 +180,7 @@
 
             {{-- INFO SISWA (muncul setelah cari) --}}
             <div id="infoSiswa" style="display:none;">
+                <input type="hidden" name="spp_id" id="inputSppId"> 
                 <div class="info-card">
                     <div class="info-card-title">Data Siswa</div>
                     <div class="info-row"><span>NIS</span><span id="sSiswa_nis">-</span></div>
@@ -192,7 +193,7 @@
                 {{-- INFO TAGIHAN SPP --}}
                 <div class="info-card">
                     <div class="info-card-title">Tagihan SPP</div>
-                    <div class="info-row"><span>Tahun</span><span id="sSPP_tahun">-</span></div>
+                    <div class="info-row"><span>Tingkat</span><span id="sSPP_tingkat">-</span></div>
                     <div class="info-row"><span>Nominal</span><span id="sSPP_nominal">-</span></div>
                     <div class="info-row"><span>Status</span><span id="sSPP_status">-</span></div>
                 </div>
@@ -203,32 +204,60 @@
                         <label>Tanggal Bayar</label>
                         <input type="date" name="tanggal_bayar" class="form-input" required>
                     </div>
+
                     <div class="form-group">
                         <label>Bulan</label>
-                        <select name="bulan" class="form-input form-select" required>
-                            <option value="">Pilih Bulan</option>
-                            <option>Januari</option><option>Februari</option><option>Maret</option>
-                            <option>April</option><option>Mei</option><option>Juni</option>
-                            <option>Juli</option><option>Agustus</option><option>September</option>
-                            <option>Oktober</option><option>November</option><option>Desember</option>
-                        </select>
+                        <div class="form-custom-dropdown" id="dropBulan">
+                            <button type="button" class="form-dropdown-btn" onclick="toggleFormDrop('dropBulan')">
+                                <span id="labelBulan">Pilih Bulan</span>
+                                <span class="form-drop-arrow">▼</span>
+                            </button>
+                            <input type="hidden" name="bulan" id="inputBulan">
+                            <div class="form-dropdown-menu">
+                                @foreach(['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'] as $b)
+                                <div class="form-dropdown-item" onclick="pilihFormDrop('dropBulan','labelBulan','inputBulan','{{ $b }}')">{{ $b }}</div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-group">
                         <label>Tahun</label>
-                        <input type="number" name="tahun" class="form-input" placeholder="2025" min="2020" max="2030" required>
+                        <div class="form-custom-dropdown" id="dropTahun">
+                            <button type="button" class="form-dropdown-btn" onclick="toggleFormDrop('dropTahun')">
+                                <span id="labelTahun">Pilih Tahun</span>
+                                <span class="form-drop-arrow">▼</span>
+                            </button>
+                            <input type="hidden" name="tahun" id="inputTahunPembayaran">
+                            <div class="form-dropdown-menu">
+                                @foreach(['2024','2025','2026'] as $y)
+                                <div class="form-dropdown-item" onclick="pilihFormDrop('dropTahun','labelTahun','inputTahunPembayaran','{{ $y }}')">{{ $y }}</div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-group">
                         <label>Metode Pembayaran</label>
-                        <select name="metode" class="form-input form-select" required>
-                            <option value="">Pilih Metode</option>
-                            <option value="tunai">Tunai</option>
-                            <option value="transfer">Transfer</option>
-                            <option value="qris">QRIS</option>
-                        </select>
+                        <div class="form-custom-dropdown" id="dropMetode">
+                            <button type="button" class="form-dropdown-btn" onclick="toggleFormDrop('dropMetode')">
+                                <span id="labelMetode">Pilih Metode</span>
+                                <span class="form-drop-arrow">▼</span>
+                            </button>
+                            <input type="hidden" name="metode" id="inputMetode">
+                            <div class="form-dropdown-menu">
+                                <div class="form-dropdown-item" onclick="pilihFormDrop('dropMetode','labelMetode','inputMetode','tunai')">Tunai</div>
+                                <div class="form-dropdown-item" onclick="pilihFormDrop('dropMetode','labelMetode','inputMetode','transfer')">Transfer</div>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-group full">
                         <label>Jumlah Bayar (Rp)</label>
-                        <input type="number" name="jumlah_bayar" class="form-input" placeholder="500000" min="0" required>
+                        <div class="input-rp-wrap">
+                            <span class="rp-prefix">Rp</span>
+                            <input type="number" name="jumlah_bayar" class="form-input input-rp" placeholder="0" min="0" required>
+                        </div>
                     </div>
                 </div>
 
@@ -308,6 +337,25 @@
 const BASE = '{{ url("/") }}';
 const CSRF = '{{ csrf_token() }}';
 
+// ===== FORM CUSTOM DROPDOWN =====
+function toggleFormDrop(id) {
+    const dd = document.getElementById(id);
+    const isOpen = dd.classList.contains('open');
+    document.querySelectorAll('.form-custom-dropdown').forEach(d => d.classList.remove('open'));
+    if (!isOpen) dd.classList.add('open');
+}
+
+function pilihFormDrop(ddId, labelId, inputId, nilai) {
+    document.getElementById(labelId).textContent = nilai.charAt(0).toUpperCase() + nilai.slice(1);
+    document.getElementById(inputId).value = nilai;
+    document.getElementById(ddId).classList.remove('open');
+}
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.form-custom-dropdown') && !e.target.closest('.custom-dropdown')) {
+        document.querySelectorAll('.form-custom-dropdown').forEach(d => d.classList.remove('open'));
+    }
+});
 // ======= DROPDOWN FILTER =======
 function toggleDropdown(id) {
     const dd = document.getElementById(id);
@@ -422,18 +470,25 @@ async function cariSiswa() {
         });
         const data = await res.json();
         if (!data.siswa) { alert('Siswa tidak ditemukan!'); return; }
+
         document.getElementById('sSiswa_nis').textContent     = data.siswa.nis;
         document.getElementById('sSiswa_nama').textContent    = data.siswa.nama_lengkap;
         document.getElementById('sSiswa_kelas').textContent   = data.siswa.kelas;
         document.getElementById('sSiswa_jurusan').textContent = data.siswa.jurusan;
         document.getElementById('inputSiswaId').value         = data.siswa.id;
+
         if (data.spp) {
-            document.getElementById('sSPP_tahun').textContent   = data.spp.tahun;
+            document.getElementById('sSPP_tingkat').textContent = 'Kelas ' + data.spp.tingkat;
             document.getElementById('sSPP_nominal').textContent = 'Rp ' + parseInt(data.spp.nominal).toLocaleString('id-ID');
             document.getElementById('sSPP_status').textContent  = data.status_tagihan ?? '-';
+            document.getElementById('inputSppId').value         = data.spp.id;
+            document.querySelector('input[name="jumlah_bayar"]').value = data.spp.nominal;
+            pilihFormDrop('dropTahun', 'labelTahun', 'inputTahunPembayaran', String(new Date().getFullYear()));
         }
+
         document.getElementById('infoSiswa').style.display = 'block';
-        document.getElementById('btnSimpan').style.display = 'flex';
+        document.getElementById('btnSimpan').style.display = 'inline-flex';
+
     } catch(err) { console.error(err); alert('Terjadi kesalahan.'); }
 }
 

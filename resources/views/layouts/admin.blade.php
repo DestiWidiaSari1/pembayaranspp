@@ -21,8 +21,8 @@
 
     <div class="nav-right">
         <div class="user-box">
-            <img src="https://i.pravatar.cc/40?img=26">
-            <span>Admin1</span>
+            <img src="{{ asset('images/fotoadmin.jpg') }}">
+            <span>Admin</span>
         </div>
     </div>
 </div>
@@ -67,9 +67,12 @@
 
     </ul>
 
-    <div class="logout">
+    <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="logout">
         <i class="fa fa-sign-out-alt"></i> Logout
-    </div>
+    </button>
+    </form>
 </div>
 
 <!-- MAIN -->

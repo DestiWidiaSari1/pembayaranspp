@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SiswaController extends Controller
 {
@@ -19,8 +20,18 @@ class SiswaController extends Controller
             'nama_lengkap' => 'required',
             'kelas'        => 'required',
             'jurusan'      => 'required',
+            'email'        => 'nullable|email|unique:siswas,email',
         ]);
-        Siswa::create($request->only('nis', 'nama_lengkap', 'kelas', 'jurusan'));
+
+        Siswa::create([
+            'nis'          => $request->nis,
+            'nama_lengkap' => $request->nama_lengkap,
+            'kelas'        => $request->kelas,
+            'jurusan'      => $request->jurusan,
+            'email'        => $request->email,
+            'password'     => Hash::make($request->nis), // password awal = NIS
+        ]);
+
         return redirect()->route('data-siswa')->with('success', 'Siswa berhasil ditambahkan.');
     }
 
@@ -32,8 +43,17 @@ class SiswaController extends Controller
             'nama_lengkap' => 'required',
             'kelas'        => 'required',
             'jurusan'      => 'required',
+            'email'        => 'nullable|email|unique:siswas,email,' . $id,
         ]);
-        $siswa->update($request->only('nis', 'nama_lengkap', 'kelas', 'jurusan'));
+
+        $siswa->update([
+            'nis'          => $request->nis,
+            'nama_lengkap' => $request->nama_lengkap,
+            'kelas'        => $request->kelas,
+            'jurusan'      => $request->jurusan,
+            'email'        => $request->email,
+        ]);
+
         return redirect()->route('data-siswa')->with('success', 'Data siswa berhasil diperbarui.');
     }
 

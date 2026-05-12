@@ -263,3 +263,197 @@ tbody tr:hover { background: #fffaf5; }
 
 .page-num.active { background: #4b3621; color: #fff; }
 .page-num:hover:not(.active) { background: #ddd0be; }
+
+/* ======= CUSTOM DROPDOWN FILTER LAPORAN ======= */
+.custom-dropdown {
+    position: relative;
+    align-self: flex-start;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #f8f2eb;
+    border: none;
+    height: 42px;
+    padding: 0 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: #4b3621;
+    cursor: pointer;
+    min-width: 150px;
+    font-weight: 500;
+    transition: background 0.15s;
+}
+
+.dropdown-toggle:hover { background: #f0e6d6; }
+
+.dropdown-arrow {
+    font-size: 10px;
+    color: #8b7355;
+}
+
+.dropdown-menu {
+    display: none;
+    position: fixed;
+    background: #3d2e1e;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(75, 59, 42, 0.2);
+    z-index: 9999;
+    min-width: 170px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding: 6px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #5c4630 #3d2e1e;
+}
+
+.custom-dropdown.open .dropdown-menu { display: block; }
+
+.dropdown-item {
+    padding: 11px 18px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: #e8ddd0;
+    cursor: pointer;
+    transition: background 0.12s;
+}
+
+.dropdown-item:hover { background: rgba(255,255,255,0.08); }
+.dropdown-item.active { color: #ffffff; font-weight: 700; }
+
+/* Fix badge - paksa override */
+.badge.lunas  { background: #d8f5d6 !important; color: #43a047 !important; }
+.badge.belum  { background: #ffe0e0 !important; color: #e53935 !important; }
+
+/* ===== MODAL DETAIL LAPORAN ===== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(75, 59, 42, 0.45);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal-box-laporan {
+    background: #fdf7f0;
+    border-radius: 18px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 8px 32px rgba(75, 59, 42, 0.2);
+    animation: modalIn 0.22s ease;
+    overflow: hidden;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(-16px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header-laporan {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid #e8d9c5;
+}
+
+.modal-title-laporan {
+    font-size: 17px;
+    font-weight: 700;
+    color: #4b3b2a;
+    margin: 0;
+}
+
+.modal-sub-laporan {
+    font-size: 12px;
+    color: #9a8472;
+    margin: 3px 0 0;
+}
+
+.modal-close-laporan {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #9a8472;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 4px;
+}
+
+.modal-close-laporan:hover { color: #d64545; }
+
+.modal-body-laporan {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detail-card {
+    background: #f0e6d8;
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.detail-card.dark {
+    background: #4b3621;
+}
+
+.detail-card-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #7b6a58;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.detail-card.dark .detail-card-title { color: #c4a882; }
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 5px 0;
+    border-bottom: 1px solid #e0cfbc;
+    color: #4b3621;
+}
+
+.detail-card.dark .detail-row {
+    border-bottom-color: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.detail-row:last-child { border-bottom: none; }
+.detail-row span:first-child { color: #7b6a58; }
+.detail-card.dark .detail-row span:first-child { color: #c4a882; }
+.detail-row span:last-child { font-weight: 600; }
+
+.modal-footer-laporan {
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px 22px 18px;
+    border-top: 1px solid #e8d9c5;
+}
+
+.btn-modal-tutup {
+    background: #ece3d8;
+    color: #4b3621;
+    border: none;
+    padding: 9px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-modal-tutup:hover { background: #ddd0c0; }

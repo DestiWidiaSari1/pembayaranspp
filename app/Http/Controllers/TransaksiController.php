@@ -35,69 +35,69 @@ class TransaksiController extends Controller
     }
 
     public function cariSiswa(Request $request)
-    {
-        $siswa = Siswa::where('nis', $request->nis)->first();
+{
+    $siswa = Siswa::where('nis', $request->nis)->first();
+    if (!$siswa) return response()->json(['siswa' => null], 404);
 
-        if (!$siswa) {
-            return response()->json(['siswa' => null], 404);
-        }
+    // Ambil tingkat dari kelas (X IPA 1 → X, XI IPS 2 → XI, XII IPA 1 → XII)
+    $tingkat = explode(' ', $siswa->kelas)[0];
 
-        // Cari SPP tahun berjalan
-        $tahun = date('Y');
-        $spp   = Spp::where('tahun', $tahun)->first();
+    // Cari SPP berdasarkan tingkat SAJA (hapus filter tahun)
+    $spp = Spp::where('tingkat', $tingkat)->first();
 
-        // Cek status tagihan
+    $sudahBayar = 0;
+    if ($spp) {
         $sudahBayar = Transaksi::where('siswa_id', $siswa->id)
-            ->where('tahun', $tahun)
             ->where('status', 'lunas')
             ->count();
-
-        $statusTagihan = $sudahBayar > 0 ? 'Lunas' : 'Belum Lunas';
-
-        return response()->json([
-            'siswa'          => $siswa,
-            'spp'            => $spp,
-            'status_tagihan' => $statusTagihan,
-        ]);
     }
+
+    return response()->json([
+        'siswa'          => $siswa,
+        'spp'            => $spp,
+        'status_tagihan' => $sudahBayar > 0 ? 'Lunas' : 'Belum Lunas',
+    ]);
+}
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'siswa_id'     => 'required|exists:siswas,id',
-            'tanggal_bayar'=> 'required|date',
-            'bulan'        => 'required',
-            'tahun'        => 'required|integer',
-            'metode'       => 'required',
-            'jumlah_bayar' => 'required|numeric|min:1',
-        ]);
+{
+    $request->validate([
+        'siswa_id'      => 'required|exists:siswas,id',
+        'tanggal_bayar' => 'required|date',
+        'bulan'         => 'required',
+        'tahun'         => 'required|integer',
+        'metode'        => 'required',
+        'jumlah_bayar'  => 'required|numeric|min:1',
+    ]);
 
-        // Tentukan status otomatis
-        $spp    = Spp::where('tahun', $request->tahun)->first();
-        $status = 'belum';
+    $siswa  = Siswa::findOrFail($request->siswa_id);
+    $tingkat = explode(' ', $siswa->kelas)[0];
+    $spp    = Spp::where('tingkat', $tingkat)->first();
 
-        if ($spp) {
-            if ($request->jumlah_bayar >= $spp->nominal) {
-                $status = 'lunas';
-            } elseif ($request->jumlah_bayar > 0) {
-                $status = 'cicilan';
-            }
-        } else {
+    $status = 'belum';
+    if ($spp) {
+        if ($request->jumlah_bayar >= $spp->nominal) {
             $status = 'lunas';
+        } elseif ($request->jumlah_bayar > 0) {
+            $status = 'cicilan';
         }
-
-        Transaksi::create([
-            'siswa_id'     => $request->siswa_id,
-            'tanggal_bayar'=> $request->tanggal_bayar,
-            'bulan'        => $request->bulan,
-            'tahun'        => $request->tahun,
-            'metode'       => $request->metode,
-            'jumlah_bayar' => $request->jumlah_bayar,
-            'status'       => $status,
-        ]);
-
-        return redirect()->route('transaksi-pembayaran')->with('success', 'Pembayaran berhasil disimpan.');
+    } else {
+        $status = 'lunas';
     }
+
+    Transaksi::create([
+        'siswa_id'      => $request->siswa_id,
+        'spp_id'        => $spp?->id,
+        'tanggal_bayar' => $request->tanggal_bayar,
+        'bulan'         => $request->bulan,
+        'tahun'         => $request->tahun,
+        'metode'        => $request->metode,
+        'jumlah_bayar'  => $request->jumlah_bayar,
+        'status'        => $status,
+    ]);
+
+    return redirect()->route('transaksi-pembayaran')->with('success', 'Pembayaran berhasil disimpan.');
+}
 
     public function show($id)
     {

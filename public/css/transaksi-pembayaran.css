@@ -822,3 +822,224 @@ table tr:hover {
     align-items: center;
     gap: 8px;
 }
+
+/* FORM SELECT WRAP */
+.form-select-wrap {
+    position: relative;
+}
+
+.form-select-wrap select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235c4630' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+/* INPUT RP */
+.input-rp-wrap {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #dcc9b0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    transition: border-color 0.15s;
+}
+
+.input-rp-wrap:focus-within {
+    border-color: #5c4630;
+}
+
+.rp-prefix {
+    padding: 10px 12px;
+    background: #f0e6d8;
+    color: #5c4630;
+    font-weight: 600;
+    font-size: 14px;
+    border-right: 1.5px solid #dcc9b0;
+    white-space: nowrap;
+}
+
+.input-rp {
+    border: none !important;
+    border-radius: 0 !important;
+    flex: 1;
+}
+
+.input-rp:focus {
+    border: none !important;
+    outline: none;
+}
+
+/* ALERT SUCCESS */
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* AKSI GROUP */
+.aksi-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* OVERRIDE SELECT DI FORM GRID MODAL */
+.form-grid .form-select,
+.form-grid .form-input[type="number"],
+.form-grid .form-input[type="date"] {
+    background-color: #fff;
+    border: 1.5px solid #dcc9b0;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #4b3b2a;
+    height: 44px;
+    padding: 0 36px 0 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+    cursor: pointer;
+}
+
+.form-grid .form-select:focus,
+.form-grid .form-input:focus {
+    border-color: #5c4630;
+    outline: none;
+}
+
+/* Perbaiki tampilan date input */
+.form-grid input[type="date"] {
+    padding: 10px 14px;
+    height: auto;
+}
+
+/* ===== FORM CUSTOM DROPDOWN (dalam modal) ===== */
+.form-custom-dropdown {
+    position: relative;
+}
+
+.form-dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #dcc9b0;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: #4b3b2a;
+    background: #fff;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+    text-align: left;
+}
+
+.form-custom-dropdown.open .form-dropdown-btn {
+    border-color: #5c4630;
+}
+
+.form-drop-arrow {
+    font-size: 10px;
+    color: #8b7355;
+    transition: transform 0.2s;
+}
+
+.form-custom-dropdown.open .form-drop-arrow {
+    transform: rotate(180deg);
+}
+
+.form-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #3d2e1e;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(75, 59, 42, 0.25);
+    z-index: 10000;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 4px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #5c4630 #3d2e1e;
+}
+
+.form-custom-dropdown.open .form-dropdown-menu {
+    display: block;
+    animation: ddIn 0.15s ease;
+}
+
+.form-dropdown-menu::-webkit-scrollbar { width: 4px; }
+.form-dropdown-menu::-webkit-scrollbar-track { background: #3d2e1e; }
+.form-dropdown-menu::-webkit-scrollbar-thumb { background: #5c4630; border-radius: 4px; }
+
+.form-dropdown-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: #e8ddd0;
+    cursor: pointer;
+    transition: background 0.12s;
+}
+
+.form-dropdown-item:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.form-dropdown-item.active {
+    color: #fff;
+    font-weight: 700;
+}
+
+/* DATE INPUT CUSTOM */
+.form-grid input[type="date"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #dcc9b0;
+    border-radius: 10px;
+    background: #fff;
+    color: #4b3b2a;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+    height: auto;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.form-grid input[type="date"]:focus {
+    border-color: #5c4630;
+}
+
+.form-grid input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(30%) sepia(30%) saturate(500%) hue-rotate(10deg);
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.form-grid input[type="date"]::-webkit-datetime-edit {
+    color: #4b3b2a;
+}
+
+.form-grid input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    color: #4b3b2a;
+}
+

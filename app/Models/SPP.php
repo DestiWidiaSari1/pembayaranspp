@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class SPP extends Model
 {
     protected $table = 'spps';
-    protected $fillable = ['kode', 'tahun', 'nominal'];
+    protected $fillable = ['kode', 'tingkat', 'nominal'];
 }
